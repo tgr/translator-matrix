@@ -56,7 +56,7 @@ def main():
         output = open(args.file, 'w')
     writer = csv.writer(output, dialect='unix')
     header = ['']
-    header.extend(provider.name() for provider in providers)
+    header.extend(f'=HYPERLINK("{provider.url()}", "{provider.name()}")' for provider in providers)
     writer.writerow(header)
     for lang, lang_data in data_by_language.items():
         row = [lang]
