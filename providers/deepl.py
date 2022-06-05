@@ -19,9 +19,9 @@ class DeepL(Provider):
         source_lang_row = soup.find(class_=re.compile(r'^table-module')).find_all('tr')[2]
         if source_lang_row.find_all('td')[0].get_text().strip() != 'source_lang':
             raise Exception('Could not find source_lang documentation')
-        lang_list = source_lang_row.find_all('td')[2].find('li')
+        lang_list = source_lang_row.find_all('td')[2].find_all('li')
         for lang_item in lang_list:
-            language_code = re.search(r'"\w+"', lang_item.get_text())[0].lower()
+            language_code = re.search(r'"(\w+)"', lang_item.get_text())[1].lower()
             languages.append(language_code)
         languages.sort()
         return languages
